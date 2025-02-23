@@ -1,5 +1,5 @@
 import streamlit as st
-from ab import sample_size_for_proportions
+from lib.ab import sample_size_for_proportions
 
 st.header('A/B Sample Size Calculator')
 st.write("This app calculates the sample size needed for an A/B test.")
