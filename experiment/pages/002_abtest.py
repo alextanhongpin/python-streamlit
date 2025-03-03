@@ -3,19 +3,21 @@ from lib.ab import analyze
 
 st.set_page_config(page_title="A/B Test", page_icon="🔎")
 
-st.header('A/B Testing')
-st.write("This is a simple A/B testing calculator. Enter the number of visitors and conversions for each group to calculate the conversion rate and test the hypothesis.")
+st.header("A/B Testing")
+st.write(
+    "This is a simple A/B testing calculator. Enter the number of visitors and conversions for each group to calculate the conversion rate and test the hypothesis."
+)
 
 cols = st.columns(3)
 visitors_a = cols[0].number_input("Visitors A", step=1, min_value=0, value=80000)
 conversion_a = cols[1].number_input("Conversion A", step=1, min_value=0, value=1600)
-conversion_rate_a  = conversion_a/visitors_a * 100
+conversion_rate_a = conversion_a / visitors_a * 100
 cols[2].number_input("Conversion rate A (%)", value=conversion_rate_a, disabled=True)
 
 cols = st.columns(3)
 visitors_b = cols[0].number_input("Visitors B", step=1, min_value=0, value=80000)
 conversion_b = cols[1].number_input("Conversion B", step=1, min_value=0, value=1712)
-conversion_rate_b = conversion_b/visitors_b * 100
+conversion_rate_b = conversion_b / visitors_b * 100
 cols[2].number_input("Conversion rate B (%)", value=conversion_rate_b, disabled=True)
 
 relative_uplift = (conversion_rate_b - conversion_rate_a) / conversion_rate_a * 100
