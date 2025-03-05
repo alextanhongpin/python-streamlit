@@ -15,7 +15,7 @@ n_arms = len(fruits)
 if "bandit" not in st.session_state:
     st.session_state.bandit = Bandit(n_arms)
 
-arm = st.session_state.bandit.pull()
+arm, probs = st.session_state.bandit.pull(return_probs=True)
 
 
 def update(arm, reward):
@@ -25,17 +25,20 @@ def update(arm, reward):
 st.title("Fruit Bandit")
 st.image(images[arm])
 st.write(f"Do you like {fruits[arm]}?")
+st.write(probs)
 
-yes, no = st.columns(2)
+yes, no, skip = st.columns(3)
 yes.button(
     "Yes", type="primary", use_container_width=True, on_click=update, args=[arm, True]
 )
 no.button(
     "No", type="secondary", use_container_width=True, on_click=update, args=[arm, False]
 )
+skip.button("Skip", type="secondary", use_container_width=True)
 
 for i in range(n_arms):
     bandit = st.session_state.bandit
     success = int(bandit.n_success[i])
     failure = int(bandit.n_failure[i])
-    st.write(f"{fruits[i]}: {success}/{failure} ({success+failure})")
+    impressions = int(bandit.n_impressions[i])
+    st.write(f"{fruits[i]}: {success}/{failure} (shown {impressions} times)")
