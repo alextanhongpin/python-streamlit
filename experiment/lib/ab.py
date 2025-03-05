@@ -1,4 +1,5 @@
 import math
+import scipy.stats as st
 import statsmodels.stats.api as sm
 import statsmodels.stats.power as sp
 
@@ -21,8 +22,25 @@ def sample_size_for_proportions(
     )
 
 
-def analyze(count1, count2, nobs1, nobs2, alternative="two-sided"):
+def test_proportions_2indep(count1, count2, nobs1, nobs2, alternative="two-sided"):
     stat, p_value = sm.test_proportions_2indep(
         count1, nobs1, count2, nobs2, return_results=False, alternative=alternative
     )
+
     return stat, p_value
+
+
+def test_mean_2indep(
+    *, mean1, mean2, std1, std2, nobs1, nobs2, alternative="two-sided"
+):
+    res = st.ttest_ind_from_stats(
+        mean1=mean1,
+        mean2=mean2,
+        nobs1=nobs1,
+        nobs2=nobs2,
+        std1=std1,
+        std2=std2,
+        alternative=alternative,
+    )
+
+    return res.statistic, res.pvalue

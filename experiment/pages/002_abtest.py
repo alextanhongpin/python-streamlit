@@ -1,5 +1,5 @@
 import streamlit as st
-from lib.ab import analyze
+from lib.ab import test_proportions_2indep
 
 st.set_page_config(page_title="A/B Test", page_icon="🔎")
 
@@ -25,7 +25,7 @@ st.write(f"Relative uplift in Conversion Rate: {relative_uplift:.2f}%")
 
 hypothesis = st.radio("Hypothesis", ["two-sided", "smaller", "larger"])
 
-stats, p_value = analyze(
+stats, p_value = test_proportions_2indep(
     conversion_a, conversion_b, visitors_a, visitors_b, alternative=hypothesis
 )
 st.write(f"p-value: {p_value:.4f}")
