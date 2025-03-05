@@ -29,6 +29,8 @@ for i in range(100):
 
 
 for arm in range(n_arms):
+    success, failure = bandit.engagements[arm]
+    impressions = bandit.impressions[arm]
     st.write(
-        f"Arm {arm} has a success rate of {bandit.n_success[arm] / (bandit.n_success[arm] + bandit.n_failures[arm]):.2f} ({int(bandit.n_success[arm])} / {int(bandit.n_success[arm] + bandit.n_failures[arm])})"
+        f"Arm {arm} has a success rate of {success/impressions} ({int(success)} / {int(failure)})"
     )

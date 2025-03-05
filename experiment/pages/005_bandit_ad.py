@@ -38,7 +38,8 @@ skip.button("Skip", type="secondary", use_container_width=True)
 
 for i in range(n_arms):
     bandit = st.session_state.bandit
-    success = int(bandit.n_success[i])
-    failure = int(bandit.n_failure[i])
-    impressions = int(bandit.n_impressions[i])
+    success, failure = bandit.engagements[i]
+    success = int(success)
+    failure = int(failure)
+    impressions = int(bandit.impressions[i])
     st.write(f"{fruits[i]}: {success}/{failure} (shown {impressions} times)")
