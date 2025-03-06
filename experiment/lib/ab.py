@@ -30,9 +30,7 @@ def test_proportions_2indep(count1, count2, nobs1, nobs2, alternative="two-sided
     return stat, p_value
 
 
-def test_mean_2indep(
-    *, mean1, mean2, std1, std2, nobs1, nobs2, alternative="two-sided"
-):
+def test_mean2indep(*, mean1, mean2, std1, std2, nobs1, nobs2, alternative="two-sided"):
     res = st.ttest_ind_from_stats(
         mean1=mean1,
         mean2=mean2,
@@ -44,3 +42,24 @@ def test_mean_2indep(
     )
 
     return res.statistic, res.pvalue
+
+
+def proportions_confint(
+    *,
+    count1,
+    count2,
+    nobs1,
+    nobs2,
+    alpha=0.05,
+    method="binom_test",
+):
+    ci1, ci2 = sm.proportion_confint(
+        count=[count1, count2],
+        nobs=[nobs1, nobs2],
+        alpha=alpha,
+        method=method,
+    )
+    ci_lower1, ci_upper1 = ci1
+    ci_lower2, ci_upper2 = ci2
+
+    return (ci_lower1, ci_upper1), (ci_lower2, ci_upper2)
