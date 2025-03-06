@@ -36,10 +36,19 @@ st.write(f"p-value: {p_value:.4f}")
 st.write(f"Z-score: {stats:.4f}")
 
 tail = "two-tailed" if hypothesis == "two-sided" else "one-tailed"
+alpha = 0.05
 
-if p_value < 0.05:
-    f"The {tail} P value is less than {p_value:.4f}"
-    "By conventional criteria, this difference is considered to be extremely statistically significant."
+if p_value < alpha:
+    st.success("The result is statistically significant.")
+    st.write(
+        """
+    The result is statistically significant, meaning the observed difference between the control and variation groups is unlikely to be due to random chance. This suggests that the variation has a real effect on the conversion rate. You can confidently conclude that the changes implemented in the variation group have led to an improvement (or decline) in performance. Consider implementing the changes from the variation group to your overall user base if they align with your business goals.
+    """
+    )
 else:
-    f"The {tail} P value equals {p_value:.4f}"
-    "By conventional criteria, this difference is considered to be not statistically significant."
+    st.warning("The result is not statistically significant.")
+    st.write(
+        """
+    The result is not statistically significant, meaning the observed difference between the control and variation groups could be due to random chance. This suggests that you cannot confidently conclude that the variation has a real effect on the conversion rate. Consider running the test for a longer period, increasing the sample size, or reevaluating the test design and hypotheses.
+    """
+    )

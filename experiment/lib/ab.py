@@ -30,7 +30,9 @@ def test_proportions_2indep(count1, count2, nobs1, nobs2, alternative="two-sided
     return stat, p_value
 
 
-def test_mean2indep(*, mean1, mean2, std1, std2, nobs1, nobs2, alternative="two-sided"):
+def test_mean_2indep(
+    *, mean1, mean2, std1, std2, nobs1, nobs2, alternative="two-sided"
+):
     res = st.ttest_ind_from_stats(
         mean1=mean1,
         mean2=mean2,
